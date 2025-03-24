@@ -35,7 +35,6 @@ func ListPlugins(tenant_id string, page int, page_size int) *entities.Response {
 	}
 
 	pluginInstallations, err := db.GetAll[models.PluginInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.Page(page, page_size),
 	)
 
@@ -99,7 +98,6 @@ func BatchFetchPluginInstallationByIDs(tenant_id string, plugin_ids []string) *e
 	}
 
 	pluginInstallations, err := db.GetAll[models.PluginInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.InArray("plugin_id", strings.Map(plugin_ids, func(id string) any { return id })),
 		db.Page(1, 256), // TODO: pagination
 	)
@@ -151,7 +149,6 @@ func FetchMissingPluginInstallations(tenant_id string, plugin_unique_identifiers
 	}
 
 	installed, err := db.GetAll[models.PluginInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.InArray(
 			"plugin_id",
 			strings.Map(
@@ -203,7 +200,6 @@ func ListTools(tenant_id string, page int, page_size int) *entities.Response {
 	}
 
 	providers, err := db.GetAll[models.ToolInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.Page(page, page_size),
 	)
 
@@ -250,7 +246,6 @@ func ListModels(tenant_id string, page int, page_size int) *entities.Response {
 	}
 
 	providers, err := db.GetAll[models.AIModelInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.Page(page, page_size),
 	)
 
@@ -296,7 +291,6 @@ func GetTool(tenant_id string, plugin_id string, provider string) *entities.Resp
 
 	// try get tool
 	tool, err := db.GetOne[models.ToolInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.Equal("plugin_id", plugin_id),
 	)
 
@@ -345,7 +339,6 @@ func CheckToolExistence(tenantId string, providerIds []RequestCheckToolExistence
 
 	// get all providers
 	providers, err := db.GetAll[models.ToolInstallation](
-		db.Equal("tenant_id", tenantId),
 		db.InArray("plugin_id", strings.Map(providerIds, func(id RequestCheckToolExistence) any { return id.PluginID })),
 		db.Page(1, 256), // TODO: pagination
 	)
@@ -378,7 +371,6 @@ func ListAgentStrategies(tenant_id string, page int, page_size int) *entities.Re
 	}
 
 	providers, err := db.GetAll[models.AgentStrategyInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.Page(page, page_size),
 	)
 
@@ -423,7 +415,6 @@ func GetAgentStrategy(tenant_id string, plugin_id string, provider string) *enti
 	}
 
 	agent_strategy, err := db.GetOne[models.AgentStrategyInstallation](
-		db.Equal("tenant_id", tenant_id),
 		db.Equal("plugin_id", plugin_id),
 	)
 

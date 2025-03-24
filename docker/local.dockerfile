@@ -1,6 +1,6 @@
 FROM golang:1.22-alpine as builder
 
-ARG VERSION=unknown
+ARG VERSION=0.0.6.1
 
 # copy project
 COPY . /app
