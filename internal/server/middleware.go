@@ -41,7 +41,6 @@ func (app *App) FetchPluginInstallation() gin.HandlerFunc {
 
 		// fetch plugin installation
 		installation, err := db.GetOne[models.PluginInstallation](
-			db.Equal("tenant_id", tenantId),
 			db.Equal("plugin_id", pluginId),
 		)
 
