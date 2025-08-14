@@ -1,4 +1,4 @@
-FROM golang:1.23-alpine AS builder
+FROM 192.168.6.210/library/golang:1.23-alpine AS builder
 
 ARG VERSION=unknown
 
